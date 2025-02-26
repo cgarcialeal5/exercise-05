@@ -1,0 +1,205 @@
+---
+title: "Exercise 05"
+format: html
+editor: visual
+---
+
+## Prelims
+
+```{r}
+#| eval: true
+#| output: false
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(mosaic)
+```
+
+# Challenge 1
+
+## Step 1: Reading the Data
+
+```{r}
+d <- read_csv("IMDB-movies.csv")
+```
+
+## Step 2: Filtering the Data
+
+```{r}
+filtered_data <- d %>%
+  filter(runtimeMinutes >= 60 & runtimeMinutes <= 180, startYear >=  1920 & startYear <= 1979) %>%
+  mutate(Decade = floor(startYear/10)*10)
+```
+
+## Step 3: Histogram of Movie Length Frequency by Decade
+
+```{r}
+Histogram1 <- ggplot(filtered_data, aes(x = runtimeMinutes)) +
+  geom_histogram(aes(binwidth = (max(runtimeMinutes) - min(runtimeMinutes)) / 10), alpha = 0.5) +
+  facet_wrap(~Decade, scales = "free") +
+  labs(title = "Distribution of Movie Length by Decade", 
+       x= "Movie Length in Minutes",
+       y= "Frequency") +
+  theme(plot.title = element_text(hjust = 0.5))
+print(Histogram1)
+```
+
+## Step 4: Population Mean and Standard Deviation
+
+```{r}
+Results <- filtered_data %>%
+  group_by(Decade) %>%
+  summarise(
+    pop_mean = mean(runtimeMinutes), 
+    pop_sd= sd(runtimeMinutes))
+
+print(Results)
+```
+
+## Step 5: Sample Mean and Standard Deviation
+
+```{r}
+Sample <- filtered_data %>%
+  group_by(Decade) %>%
+  slice_sample(n=100) %>%
+  summarise(
+    sample_mean = mean(runtimeMinutes), 
+    sample_sd = sd(runtimeMinutes))
+
+print(Sample)
+```
+
+## Step 6: Standard Error for the Sample Mean
+
+```{r}
+Sample <- mutate(Sample, sample_se = sample_sd / sqrt(100))
+
+print(Sample)
+```
+
+## Step 7: Comparison of Sample and Population Mean and Standard Deviation
+
+```{r}
+Results <- mutate(Results, pop_se = Results$pop_sd/sqrt(100))
+
+Results$z_score <- (Sample$sample_mean - Results$pop_mean) / Results$pop_se
+
+Results$p_score <- 2 * (1 - pnorm(abs(Results$z_score)))
+
+Compare_Table <- merge(Results, Sample, by = "Decade")
+print(Compare_Table)
+```
+
+I used a z-test to compare the means of runtimeMinutes for the population and the single sample. This gave me z-scores for each decade, which I used to calculate the p-value for the z-score for each decade.
+
+*For the z-score:*
+
+Across all decades, the z-scores range from -1.004 to -0.737. However, the only score that is equal to or near 1 or -1 is the -1.004, all other scores fell around 0, which means that the means are almost exactly equal for each decade.
+
+*For the p-value:*
+
+The Null Hypothesis: the means are equal to each other
+
+The Alternative Hypothesis: the means are significantly different to each other
+
+Across all cdecades, the p-values range from 0.317 to 0.958. Even the lowest p-value score is high enough that there is not enough evidence to reject the null hypothesis, as it is greater than 0.05. Therefore, there is no significant difference between the means for each decade.
+
+## Step 8: Sampling Distribution
+
+```{r}
+reps <- 1000
+
+DistSample <- filtered_data %>%
+  group_by(Decade) %>%
+  do({
+    do(reps) * {
+      EachSample <- slice_sample(., n = 100, replace = FALSE)
+      summarise(EachSample, 
+                DistSample_mean = mean(runtimeMinutes),
+                DistSample_sd = sd(runtimeMinutes))
+    }
+  })%>%
+  ungroup() %>%
+  select(-.row, -.index)
+
+print(DistSample)
+```
+
+## Step 9: Sampling Distribution Mean and Standard Deviation
+
+```{r}
+DistSample_Results <- DistSample %>%
+group_by(Decade) %>%
+  summarise(
+    distributionsample_mean = mean(DistSample_mean),
+    distributionsample_sd = sd(DistSample_mean))
+
+print(DistSample_Results)
+
+Histogram2 <- ggplot(DistSample, aes(x = DistSample_mean)) +
+  geom_histogram(aes(
+    binwidth = (max(DistSample$DistSample_mean) - min(DistSample$DistSample_mean)) / 10), alpha = 0.5) +
+  facet_wrap(~Decade, scales = "free") +
+  labs(title = "Distribution of Average Movie Length per Decade",
+       subtitle = "From Sampling Distribution",
+       x = "Average Movie Length in Minutes",
+       y = "Frequency in Sampling Distribution") +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+
+print(Histogram2)
+```
+
+## Step 10: Comparison of Standard Error for Single Sample, Population, and Sampling Distribution
+
+```{r}
+#Join all pop, sample, and sampling distribution info into one tibble to make it easier...
+
+Complete <- Results %>%
+  left_join(Sample, by = "Decade") %>%
+  left_join(DistSample_Results, by = "Decade")
+
+CompleteCompare <- Complete %>%
+  mutate(
+    
+  z_pop_sample = Results$z_score,
+  
+  p_pop_sample = 2 * (1 - pnorm(abs(z_pop_sample))),
+  
+  z_pop_dist = (Complete$distributionsample_mean - Complete$pop_mean) / Complete$pop_se,
+  
+  p_pop_dist = 2 * (1 - pnorm(abs(z_pop_dist))),
+  
+  z_sample_dist = (Complete$distributionsample_mean - Complete$sample_mean) / Complete$distributionsample_sd,
+  
+  p_sample_dist = 2 *(1 - pnorm(abs(z_sample_dist)))
+   ) 
+
+CompleteCompare <- CompleteCompare %>%
+  select(Decade, pop_mean, sample_mean, distributionsample_mean, z_pop_sample, p_pop_sample, z_pop_dist, p_pop_dist, z_sample_dist, p_sample_dist)
+
+print(CompleteCompare)
+```
+
+I used a z-test to compare the means of runtimeMinutes for the population, the single sample, and the sampling distribution during each decade. I calculated z-scores for population and single sample means, population and sampling distribution means, and single sample and sampling distribution means. This gave me three z-scores for each decade, which I used to calculate the p-value for each z-score for each decade.
+
+*For the z-score:*
+
+Across all comparisons, the z-scores range from -1.004 to 1.084. However, most scores fell around 0, which means that the three means are almost exactly equal, only two z-scores were above or below 0 by more than a few decimal points.
+
+*For the p-value:*
+
+The Null Hypothesis: the means are equal to each other
+
+The Alternative Hypothesis: the means are significantly different to each other
+
+Across all comparisons, the p-values range from 0.278 to 0.998. Even the lowest p-value score is high enough that there is not enough evidence to reject the null hypothesis. Therefore, there is no significant difference between the means for the population, the single sample, and the sampling distribution.
+
+# Challenge 2
+
+## Step 1: Reading the file
+
+```{r}
+f <- "https://raw.githubusercontent.com/difiore/ada-datasets/main/zombies.csv"
+z <- read_csv(f)
+```
