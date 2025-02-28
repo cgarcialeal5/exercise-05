@@ -426,4 +426,11 @@ print(z_sampling_results)
 print(z_single_results)
 ```
 
-Although the CIs for each variable are very different, none of the CIs are very wide, therefore the estimate appears to be quite precise.
+Although the CIs for each variable are very different, none of the CIs are very wide, therefore the estimate appears to be quite precise. Interestingly, the CIs for the single sample and for the sampling distribution are quite similar.
+
+## Step 10: Bootstrapping
+
+```{r}
+
+
+```

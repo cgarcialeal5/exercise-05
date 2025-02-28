@@ -199,12 +199,12 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6 × 3
   Decade sample_mean sample_sd
    &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
-1   1920        96.1      25.6
-2   1930        92        18.3
-3   1940       101.       18.5
-4   1950        98.4      17.4
-5   1960       105.       19.9
-6   1970       106.       17.3</code></pre>
+1   1920        96.6      26.2
+2   1930        90.8      18.1
+3   1940        97.8      19.8
+4   1950        96.5      21.5
+5   1960       104.       19.0
+6   1970       101.       15.5</code></pre>
 </div>
 </div>
 </section>
@@ -218,12 +218,12 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6 × 4
   Decade sample_mean sample_sd sample_se
    &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1   1920        96.1      25.6      2.56
-2   1930        92        18.3      1.83
-3   1940       101.       18.5      1.85
-4   1950        98.4      17.4      1.74
-5   1960       105.       19.9      1.99
-6   1970       106.       17.3      1.73</code></pre>
+1   1920        96.6      26.2      2.62
+2   1930        90.8      18.1      1.81
+3   1940        97.8      19.8      1.98
+4   1950        96.5      21.5      2.15
+5   1960       104.       19.0      1.90
+6   1970       101.       15.5      1.55</code></pre>
 </div>
 </div>
 </section>
@@ -239,20 +239,20 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>Compare_Table <span class="ot">&lt;-</span> <span class="fu">merge</span>(Results, Sample, <span class="at">by =</span> <span class="st">"Decade"</span>)</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Compare_Table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Decade  pop_mean   pop_sd   pop_se     z_score   p_score sample_mean
-1   1920  96.25658 26.20133 2.620133 -0.06357651 0.9493074       96.09
-2   1930  90.30000 17.28879 1.728879  0.98329610 0.3254617       92.00
-3   1940  97.20332 19.12372 1.912372  1.87551139 0.0607224      100.79
-4   1950  98.94820 19.20646 1.920646 -0.31145571 0.7554542       98.35
-5   1960 105.58586 21.23202 2.123202 -0.39838814 0.6903441      104.74
-6   1970 103.75000 17.95934 1.795934  1.21942136 0.2226843      105.94
-  sample_sd sample_se
-1  25.63422  2.563422
-2  18.25853  1.825853
-3  18.47482  1.847482
-4  17.39870  1.739870
-5  19.94873  1.994873
-6  17.29005  1.729005</code></pre>
+<pre><code>  Decade  pop_mean   pop_sd   pop_se    z_score   p_score sample_mean sample_sd
+1   1920  96.25658 26.20133 2.620133  0.1501531 0.8806439       96.65  26.17940
+2   1930  90.30000 17.28879 1.728879  0.3065570 0.7591806       90.83  18.05047
+3   1940  97.20332 19.12372 1.912372  0.2910915 0.7709813       97.76  19.83473
+4   1950  98.94820 19.20646 1.920646 -1.2798799 0.2005874       96.49  21.53667
+5   1960 105.58586 21.23202 2.123202 -0.9541525 0.3400065      103.56  18.97171
+6   1970 103.75000 17.95934 1.795934 -1.3586247 0.1742655      101.31  15.54901
+  sample_se
+1  2.617940
+2  1.805047
+3  1.983473
+4  2.153667
+5  1.897171
+6  1.554901</code></pre>
 </div>
 </div>
 <p>I used a z-test to compare the means of runtimeMinutes for the population and the single sample. This gave me z-scores for each decade, which I used to calculate the p-value for the z-score for each decade.</p>
@@ -286,16 +286,16 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6,000 × 3
    Decade DistSample_mean DistSample_sd
     &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;
- 1   1920            94.8          26.2
- 2   1920            94.6          25.5
- 3   1920            94.8          25.5
- 4   1920            95            25.5
- 5   1920            97.4          26.7
- 6   1920            95.8          25.1
- 7   1920            97.4          27.0
- 8   1920            95.3          24.3
- 9   1920            96.7          27.1
-10   1920            96.4          26.7
+ 1   1920            99            27.7
+ 2   1920            95.6          24.8
+ 3   1920            97.7          28.0
+ 4   1920            95.6          25.0
+ 5   1920            94.8          24.0
+ 6   1920            93.0          23.6
+ 7   1920            95.8          27.6
+ 8   1920            96.4          26.1
+ 9   1920            95.2          25.5
+10   1920            99.0          26.6
 # ℹ 5,990 more rows</code></pre>
 </div>
 </div>
@@ -314,12 +314,12 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6 × 3
   Decade distributionsample_mean distributionsample_sd
    &lt;dbl&gt;                   &lt;dbl&gt;                 &lt;dbl&gt;
-1   1920                    96.3                  1.54
-2   1930                    90.3                  1.56
-3   1940                    97.3                  1.74
-4   1950                    98.9                  1.83
-5   1960                   106.                   2.06
-6   1970                   104.                   1.72</code></pre>
+1   1920                    96.3                  1.52
+2   1930                    90.3                  1.53
+3   1940                    97.2                  1.77
+4   1950                    99.0                  1.79
+5   1960                   106.                   2.05
+6   1970                   104.                   1.87</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Histogram2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(DistSample, <span class="fu">aes</span>(<span class="at">x =</span> DistSample_mean)) <span class="sc">+</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(</span>
@@ -389,12 +389,12 @@ Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6 × 10
   Decade pop_mean sample_mean distributionsample_mean z_pop_sample p_pop_sample
    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;                   &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-1   1920     96.3        96.1                    96.3      -0.0636       0.949 
-2   1930     90.3        92                      90.3       0.983        0.325 
-3   1940     97.2       101.                     97.3       1.88         0.0607
-4   1950     98.9        98.4                    98.9      -0.311        0.755 
-5   1960    106.        105.                    106.       -0.398        0.690 
-6   1970    104.        106.                    104.        1.22         0.223 
+1   1920     96.3        96.6                    96.3        0.150        0.881
+2   1930     90.3        90.8                    90.3        0.307        0.759
+3   1940     97.2        97.8                    97.2        0.291        0.771
+4   1950     98.9        96.5                    99.0       -1.28         0.201
+5   1960    106.        104.                    106.        -0.954        0.340
+6   1970    104.        101.                    104.        -1.36         0.174
 # ℹ 4 more variables: z_pop_dist &lt;dbl&gt;, p_pop_dist &lt;dbl&gt;, z_sample_dist &lt;dbl&gt;,
 #   p_sample_dist &lt;dbl&gt;</code></pre>
 </div>
@@ -568,18 +568,18 @@ dbl (6): id, height, weight, zombies_killed, years_of_education, age
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_single)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 250 × 7
-      id first_name last_name gender major     variable           value
-   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;              &lt;dbl&gt;
- 1    65 Gary       Morris    Male   education height              73.0
- 2    65 Gary       Morris    Male   education weight             155. 
- 3    65 Gary       Morris    Male   education zombies_killed       4  
- 4    65 Gary       Morris    Male   education years_of_education   0  
- 5    65 Gary       Morris    Male   education age                 19.8
- 6    19 Jose       Ramirez   Male   economics height              74.8
- 7    19 Jose       Ramirez   Male   economics weight             146. 
- 8    19 Jose       Ramirez   Male   economics zombies_killed       2  
- 9    19 Jose       Ramirez   Male   economics years_of_education   1  
-10    19 Jose       Ramirez   Male   economics age                 24.0
+      id first_name last_name gender major             variable           value
+   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;             &lt;chr&gt;              &lt;dbl&gt;
+ 1   348 Deborah    Lawrence  Female botany            height              71.1
+ 2   348 Deborah    Lawrence  Female botany            weight             156. 
+ 3   348 Deborah    Lawrence  Female botany            zombies_killed       3  
+ 4   348 Deborah    Lawrence  Female botany            years_of_education   3  
+ 5   348 Deborah    Lawrence  Female botany            age                 23.9
+ 6   890 Craig      Thompson  Male   military strategy height              67.5
+ 7   890 Craig      Thompson  Male   military strategy weight             147. 
+ 8   890 Craig      Thompson  Male   military strategy zombies_killed       6  
+ 9   890 Craig      Thompson  Male   military strategy years_of_education   3  
+10   890 Craig      Thompson  Male   military strategy age                 21.3
 # ℹ 240 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>z_single_results <span class="ot">&lt;-</span> z_single <span class="sc">%&gt;%</span></span>
@@ -597,11 +597,11 @@ dbl (6): id, height, weight, zombies_killed, years_of_education, age
 <pre><code># A tibble: 5 × 6
   variable  z_single_m z_single_sd z_single_se z_single_95ci_lo z_single_95ci_up
   &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 age            20.4         2.91       0.412            19.6             21.2 
-2 height         68.3         4.00       0.565            67.2             69.4 
-3 weight        143.         16.9        2.39            139.             148.  
-4 years_of…       3           1.64       0.232             2.55             3.45
-5 zombies_…       3.06        1.67       0.236             2.60             3.52</code></pre>
+1 age            19.7         2.90       0.410            18.9             20.5 
+2 height         67.6         3.84       0.543            66.5             68.7 
+3 weight        145.         15.9        2.25            140.             149.  
+4 years_of…       3.34        1.70       0.240             2.87             3.81
+5 zombies_…       3.04        1.78       0.252             2.55             3.53</code></pre>
 </div>
 </div>
 </section>
@@ -637,16 +637,16 @@ dbl (6): id, height, weight, zombies_killed, years_of_education, age
 <pre><code># A tibble: 1,000 × 3
    variable           z_sampling_m z_sampling_sd
    &lt;chr&gt;                     &lt;dbl&gt;         &lt;dbl&gt;
- 1 age                       19.2           2.30
- 2 height                    66.4           3.81
- 3 weight                   139.           17.8 
- 4 years_of_education         3             1.75
- 5 zombies_killed             2.58          1.64
- 6 age                       20.1           2.40
- 7 height                    67.5           3.89
- 8 weight                   143.           16.6 
- 9 years_of_education         3.3           1.53
-10 zombies_killed             3.12          1.99
+ 1 age                       20.7           3.28
+ 2 height                    67.6           4.34
+ 3 weight                   140.           17.3 
+ 4 years_of_education         2.94          1.66
+ 5 zombies_killed             3.12          1.62
+ 6 age                       19.5           2.41
+ 7 height                    67.9           3.31
+ 8 weight                   146.           15.8 
+ 9 years_of_education         3.28          1.62
+10 zombies_killed             2.66          1.48
 # ℹ 990 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>z_single_results <span class="ot">&lt;-</span> z_single_results <span class="sc">%&gt;%</span></span>
@@ -665,11 +665,11 @@ dbl (6): id, height, weight, zombies_killed, years_of_education, age
 <pre><code># A tibble: 5 × 3
   variable           z_sampling_results_m z_sampling_results_sd
   &lt;chr&gt;                             &lt;dbl&gt;                 &lt;dbl&gt;
-1 age                               20.0                  0.300
-2 height                            67.6                  0.427
-3 weight                           144.                   1.92 
-4 years_of_education                 3.02                 0.156
-5 zombies_killed                     2.97                 0.178</code></pre>
+1 age                               20.1                  0.287
+2 height                            67.7                  0.411
+3 weight                           144.                   1.73 
+4 years_of_education                 3.00                 0.156
+5 zombies_killed                     3.00                 0.191</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>z_scores <span class="ot">&lt;-</span> z_sampling_results <span class="sc">%&gt;%</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -681,11 +681,11 @@ dbl (6): id, height, weight, zombies_killed, years_of_education, age
 <pre><code># A tibble: 5 × 4
   variable           z_sampling_results_m z_sampling_results_sd z_score
   &lt;chr&gt;                             &lt;dbl&gt;                 &lt;dbl&gt;   &lt;dbl&gt;
-1 age                               20.0                  0.300 -0.840 
-2 height                            67.6                  0.427 -1.21  
-3 weight                           144.                   1.92   0.208 
-4 years_of_education                 3.02                 0.156  0.0866
-5 zombies_killed                     2.97                 0.178 -0.374 </code></pre>
+1 age                               20.1                  0.287   0.920
+2 height                            67.7                  0.411   0.177
+3 weight                           144.                   1.73   -0.241
+4 years_of_education                 3.00                 0.156  -1.43 
+5 zombies_killed                     3.00                 0.191  -0.166</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>z_final_tibble <span class="ot">&lt;-</span> z_sampling_results <span class="sc">%&gt;%</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, z_sampling_results_sd) <span class="sc">%&gt;%</span></span>
@@ -698,11 +698,11 @@ dbl (6): id, height, weight, zombies_killed, years_of_education, age
 <pre><code># A tibble: 5 × 4
   variable           z_sampling_results_sd z_single_se z_score
   &lt;chr&gt;                              &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
-1 age                                0.300       0.412 -0.840 
-2 height                             0.427       0.565 -1.21  
-3 weight                             1.92        2.39   0.208 
-4 years_of_education                 0.156       0.232  0.0866
-5 zombies_killed                     0.178       0.236 -0.374 </code></pre>
+1 age                                0.287       0.410   0.920
+2 height                             0.411       0.543   0.177
+3 weight                             1.73        2.25   -0.241
+4 years_of_education                 0.156       0.240  -1.43 
+5 zombies_killed                     0.191       0.252  -0.166</code></pre>
 </div>
 </div>
 <p>The means and Standard deviations of each variable of the sample distribution can be seen in the tibble called “z_sampling_results.” Generally, the standard deviation values for all variables of the distribution sample are barely above 0 (only a few decimal points) and the standard error for all variables of the single sample are also barely above 0. The only exception to both of these calculations are the values relating to the variable weight.</p>
@@ -760,11 +760,11 @@ dbl (6): id, height, weight, zombies_killed, years_of_education, age
 <pre><code># A tibble: 5 × 5
   variable           z_sampling_results_m z_sampling_results_sd z_sampling_ci_lo
   &lt;chr&gt;                             &lt;dbl&gt;                 &lt;dbl&gt;            &lt;dbl&gt;
-1 age                               20.0                  0.300            19.3 
-2 height                            67.6                  0.427            66.4 
-3 weight                           144.                   1.92            139.  
-4 years_of_education                 3.02                 0.156             2.60
-5 zombies_killed                     2.97                 0.178             2.56
+1 age                               20.1                  0.287            19.3 
+2 height                            67.7                  0.411            66.5 
+3 weight                           144.                   1.73            139.  
+4 years_of_education                 3.00                 0.156             2.60
+5 zombies_killed                     3.00                 0.191             2.52
 # ℹ 1 more variable: z_sampling_ci_up &lt;dbl&gt;</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_single_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -772,14 +772,17 @@ dbl (6): id, height, weight, zombies_killed, years_of_education, age
 <pre><code># A tibble: 5 × 6
   variable  z_single_m z_single_sd z_single_se z_single_95ci_lo z_single_95ci_up
   &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1 age            20.4         2.91       0.412            19.6             21.2 
-2 height         68.3         4.00       0.565            67.2             69.4 
-3 weight        143.         16.9        2.39            139.             148.  
-4 years_of…       3           1.64       0.232             2.55             3.45
-5 zombies_…       3.06        1.67       0.236             2.60             3.52</code></pre>
+1 age            19.7         2.90       0.410            18.9             20.5 
+2 height         67.6         3.84       0.543            66.5             68.7 
+3 weight        145.         15.9        2.25            140.             149.  
+4 years_of…       3.34        1.70       0.240             2.87             3.81
+5 zombies_…       3.04        1.78       0.252             2.55             3.53</code></pre>
 </div>
 </div>
-<p>Although the CIs for each variable are very different, none of the CIs are very wide, therefore the estimate appears to be quite precise.</p>
+<p>Although the CIs for each variable are very different, none of the CIs are very wide, therefore the estimate appears to be quite precise. Interestingly, the CIs for the single sample and for the sampling distribution are quite similar.</p>
+</section>
+<section id="step-10-bootstrapping" class="level2">
+<h2 class="anchored" data-anchor-id="step-10-bootstrapping">Step 10: Bootstrapping</h2>
 </section>
 </section>
 
