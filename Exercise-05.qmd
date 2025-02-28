@@ -378,3 +378,52 @@ z_final_tibble <- z_sampling_results %>%
               select(variable, z_score), by = "variable")
 print(z_final_tibble)
 ```
+
+The means and Standard deviations of each variable of the sample distribution can be seen in the tibble called "z_sampling_results." Generally, the standard deviation values for all variables of the distribution sample are barely above 0 (only a few decimal points) and the standard error for all variables of the single sample are also barely above 0. The only exception to both of these calculations are the values relating to the variable weight.
+
+The low value for the standard deviation means that all the values for each variable are similar to each other. In other words, their is very little variation between the values of each variable. This is also seen in the data itself, for example the range of age is only of about 20 years (the youngest person is 10 and the oldest almost 30). Given the short range, all values for age are relatively close to the mean and, thus the standard deviation is low. The same can be said for height, years of education, and zombies killed.
+
+The only variable with a larger range of values is weight (from 90 to 210). As a result, the standard deviation of the samling distribution and the standard error of the single sample for this variable are a bit higher than the results of the other variables. Both the standard deviation of the sampling distribution and the standard error of the single sample are above 1 (even if only by a few decimals), which reflects the variability of the values for weight.
+
+Lastly, the z-scores are all near 0, only a few negative decimal points away from 0. This means that, regardless of the variability of the values for the different variables, the means of the single sample and the sampling distribution are both quite similar, though not identical (z-score =/= 0).
+
+## Step 8: Plot of Means of Sampling Distribution for Each Variable
+
+```{r}
+
+z_Hist2 <- ggplot(z_sampling, aes(x = z_sampling_m)) +
+  geom_histogram(binwidth = 1, alpha = 0.5) +   
+  facet_wrap(~variable, scales = "free") +   
+  labs(
+    title = "Sampling Distribution of Means by Variables",         
+    x = "Sample Mean",
+    y= "Frequency"
+    ) +   
+  theme(plot.title = element_text(hjust = 0.5)) 
+
+print(z_Hist2)
+
+print(z_Hist1)
+```
+
+The variables that appeared to have less of a normal distribution look more normally distributed now, but that might be because there is very little variability in the values of the means of the samples in the sampling distribution. Interestingly the weight variable looked more normally distributed in the first histogram, in this histogram there appears to be a gap around 143, where there are less means with that value in the sampling distribution.
+
+## Step 9: 95% Confidence Interval
+
+```{r}
+z_sampling_results <- z_sampling_results %>%
+  left_join(
+  z_sampling %>%
+  group_by(variable) %>%
+  summarise(
+    z_sampling_ci_lo = quantile(z_sampling_m, 0.025),
+    z_sampling_ci_up = quantile(z_sampling_m, 0.975)
+  ),
+  by = "variable")
+
+print(z_sampling_results)
+
+print(z_single_results)
+```
+
+Although the CIs for each variable are very different, none of the CIs are very wide, therefore the estimate appears to be quite precise.
