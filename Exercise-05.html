@@ -102,7 +102,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="challenge-1" class="level1">
@@ -181,8 +183,8 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 </div>
 </div>
 </section>
-<section id="step-5-sample-mean-and-standard-deviation" class="level2">
-<h2 class="anchored" data-anchor-id="step-5-sample-mean-and-standard-deviation">Step 5: Sample Mean and Standard Deviation</h2>
+<section id="step-5-single-sample-mean-and-standard-deviation" class="level2">
+<h2 class="anchored" data-anchor-id="step-5-single-sample-mean-and-standard-deviation">Step 5: Single Sample Mean and Standard Deviation</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Sample <span class="ot">&lt;-</span> filtered_data <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Decade) <span class="sc">%&gt;%</span></span>
@@ -196,12 +198,12 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6 × 3
   Decade sample_mean sample_sd
    &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
-1   1920        95.6      26.8
-2   1930        92.8      17.8
-3   1940        96.6      20.7
-4   1950        99.3      19.2
-5   1960       105.       20.8
-6   1970       103.       18.5</code></pre>
+1   1920        96.2      26.4
+2   1930        90.8      14.7
+3   1940        98.3      15.5
+4   1950        96.1      15.2
+5   1960       102.       18.7
+6   1970       102.       15.4</code></pre>
 </div>
 </div>
 </section>
@@ -215,12 +217,12 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6 × 4
   Decade sample_mean sample_sd sample_se
    &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1   1920        95.6      26.8      2.68
-2   1930        92.8      17.8      1.78
-3   1940        96.6      20.7      2.07
-4   1950        99.3      19.2      1.92
-5   1960       105.       20.8      2.08
-6   1970       103.       18.5      1.85</code></pre>
+1   1920        96.2      26.4      2.64
+2   1930        90.8      14.7      1.47
+3   1940        98.3      15.5      1.55
+4   1950        96.1      15.2      1.52
+5   1960       102.       18.7      1.87
+6   1970       102.       15.4      1.54</code></pre>
 </div>
 </div>
 </section>
@@ -236,29 +238,29 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>Compare_Table <span class="ot">&lt;-</span> <span class="fu">merge</span>(Results, Sample, <span class="at">by =</span> <span class="st">"Decade"</span>)</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Compare_Table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Decade  pop_mean   pop_sd   pop_se    z_score   p_score sample_mean sample_sd
-1   1920  96.25658 26.20133 2.620133 -0.2429567 0.8080389       95.62  26.75621
-2   1930  90.30000 17.28879 1.728879  1.4402396 0.1497996       92.79  17.83329
-3   1940  97.20332 19.12372 1.912372 -0.3102560 0.7563663       96.61  20.70080
-4   1950  98.94820 19.20646 1.920646  0.1675498 0.8669374       99.27  19.23058
-5   1960 105.58586 21.23202 2.123202 -0.4925855 0.6223055      104.54  20.78433
-6   1970 103.75000 17.95934 1.795934 -0.6904486 0.4899121      102.51  18.49242
-  sample_se
-1  2.675621
-2  1.783329
-3  2.070080
-4  1.923058
-5  2.078433
-6  1.849242</code></pre>
+<pre><code>  Decade  pop_mean   pop_sd   pop_se     z_score    p_score sample_mean
+1   1920  96.25658 26.20133 2.620133 -0.02159392 0.98277188       96.20
+2   1930  90.30000 17.28879 1.728879  0.30655702 0.75918057       90.83
+3   1940  97.20332 19.12372 1.912372  0.56823425 0.56987591       98.29
+4   1950  98.94820 19.20646 1.920646 -1.49855638 0.13398876       96.07
+5   1960 105.58586 21.23202 2.123202 -1.83960745 0.06582589      101.68
+6   1970 103.75000 17.95934 1.795934 -0.99669599 0.31891209      101.96
+  sample_sd sample_se
+1  26.41013  2.641013
+2  14.69216  1.469216
+3  15.45622  1.545622
+4  15.23702  1.523702
+5  18.69148  1.869148
+6  15.35961  1.535961</code></pre>
 </div>
 </div>
 <p>I used a z-test to compare the means of runtimeMinutes for the population and the single sample. This gave me z-scores for each decade, which I used to calculate the p-value for the z-score for each decade.</p>
 <p><em>For the z-score:</em></p>
-<p>Across all decades, the z-scores range from -1.004 to -0.737. However, the only score that is equal to or near 1 or -1 is the -1.004, all other scores fell around 0, which means that the means are almost exactly equal for each decade.</p>
+<p>Across all decades, the z-scores range from about -1 to 1. However, only a few scores are around 1 or -1, all other scores fell around 0, which means that the means are almost exactly equal for each decade.</p>
 <p><em>For the p-value:</em></p>
 <p>The Null Hypothesis: the means are equal to each other</p>
 <p>The Alternative Hypothesis: the means are significantly different to each other</p>
-<p>Across all cdecades, the p-values range from 0.317 to 0.958. Even the lowest p-value score is high enough that there is not enough evidence to reject the null hypothesis, as it is greater than 0.05. Therefore, there is no significant difference between the means for each decade.</p>
+<p>Across all decades, the p-values are above 0.05. Even the lowest p-value score is high enough that there is not enough evidence to reject the null hypothesis, as it is greater than 0.05. Therefore, there is no significant difference between the means for each decade.</p>
 </section>
 <section id="step-8-sampling-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="step-8-sampling-distribution">Step 8: Sampling Distribution</h2>
@@ -283,16 +285,16 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6,000 × 3
    Decade DistSample_mean DistSample_sd
     &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;
- 1   1920            93.9          24.4
- 2   1920            98.0          26.4
- 3   1920            96.8          27.2
- 4   1920            95.8          27.2
- 5   1920            97.3          25.9
- 6   1920            94.4          24.9
- 7   1920            93.4          24.1
- 8   1920           101.           28.0
- 9   1920            93.0          25.2
-10   1920            96.8          24.9
+ 1   1920            95.8          26.0
+ 2   1920            96.3          27.0
+ 3   1920            93.7          25.7
+ 4   1920            97.6          28.0
+ 5   1920            96.0          26.9
+ 6   1920            98.9          26.5
+ 7   1920            98.3          26.7
+ 8   1920            98.2          26.3
+ 9   1920            96.2          26.0
+10   1920            97.4          27.9
 # ℹ 5,990 more rows</code></pre>
 </div>
 </div>
@@ -311,12 +313,12 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6 × 3
   Decade distributionsample_mean distributionsample_sd
    &lt;dbl&gt;                   &lt;dbl&gt;                 &lt;dbl&gt;
-1   1920                    96.3                  1.58
-2   1930                    90.3                  1.56
-3   1940                    97.2                  1.83
-4   1950                    99.1                  1.83
-5   1960                   106.                   1.98
-6   1970                   104.                   1.73</code></pre>
+1   1920                    96.3                  1.49
+2   1930                    90.2                  1.54
+3   1940                    97.1                  1.84
+4   1950                    98.9                  1.86
+5   1960                   106.                   2.01
+6   1970                   104.                   1.66</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Histogram2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(DistSample, <span class="fu">aes</span>(<span class="at">x =</span> DistSample_mean)) <span class="sc">+</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(</span>
@@ -386,23 +388,23 @@ Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6 × 10
   Decade pop_mean sample_mean distributionsample_mean z_pop_sample p_pop_sample
    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;                   &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-1   1920     96.3        95.6                    96.3       -0.243        0.808
-2   1930     90.3        92.8                    90.3        1.44         0.150
-3   1940     97.2        96.6                    97.2       -0.310        0.756
-4   1950     98.9        99.3                    99.1        0.168        0.867
-5   1960    106.        105.                    106.        -0.493        0.622
-6   1970    104.        103.                    104.        -0.690        0.490
+1   1920     96.3        96.2                    96.3      -0.0216       0.983 
+2   1930     90.3        90.8                    90.2       0.307        0.759 
+3   1940     97.2        98.3                    97.1       0.568        0.570 
+4   1950     98.9        96.1                    98.9      -1.50         0.134 
+5   1960    106.        102.                    106.       -1.84         0.0658
+6   1970    104.        102.                    104.       -0.997        0.319 
 # ℹ 4 more variables: z_pop_dist &lt;dbl&gt;, p_pop_dist &lt;dbl&gt;, z_sample_dist &lt;dbl&gt;,
 #   p_sample_dist &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>I used a z-test to compare the means of runtimeMinutes for the population, the single sample, and the sampling distribution during each decade. I calculated z-scores for population and single sample means, population and sampling distribution means, and single sample and sampling distribution means. This gave me three z-scores for each decade, which I used to calculate the p-value for each z-score for each decade.</p>
 <p><em>For the z-score:</em></p>
-<p>Across all comparisons, the z-scores range from -1.004 to 1.084. However, most scores fell around 0, which means that the three means are almost exactly equal, only two z-scores were above or below 0 by more than a few decimal points.</p>
+<p>Across all comparisons, the z-scores range from about -1 to 1. However, most scores fell around 0, which means that the three means are almost exactly equal, only a few z-scores were above or below 0 by more than a few decimal points.</p>
 <p><em>For the p-value:</em></p>
 <p>The Null Hypothesis: the means are equal to each other</p>
 <p>The Alternative Hypothesis: the means are significantly different to each other</p>
-<p>Across all comparisons, the p-values range from 0.278 to 0.998. Even the lowest p-value score is high enough that there is not enough evidence to reject the null hypothesis. Therefore, there is no significant difference between the means for the population, the single sample, and the sampling distribution.</p>
+<p>Across all comparisons, the p-values are above 0.05. Even the lowest p-value score is high enough that there is not enough evidence to reject the null hypothesis. Therefore, there is no significant difference between the means for the population, the single sample, and the sampling distribution.</p>
 </section>
 </section>
 <section id="challenge-2" class="level1">
@@ -410,8 +412,8 @@ Ignoring unknown aesthetics: binwidth</code></pre>
 <section id="step-1-reading-the-file" class="level2">
 <h2 class="anchored" data-anchor-id="step-1-reading-the-file">Step 1: Reading the file</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/difiore/ada-datasets/main/zombies.csv"</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/difiore/ada-datasets/main/zombies.csv"</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 1000 Columns: 10
 ── Column specification ────────────────────────────────────────────────────────
@@ -421,6 +423,95 @@ dbl (6): id, height, weight, zombies_killed, years_of_education, age
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+</section>
+<section id="step-2-population-mean-and-standard-deviation" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-population-mean-and-standard-deviation">Step 2: Population Mean and Standard Deviation</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>z_long <span class="ot">&lt;-</span> z <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"height"</span>, <span class="st">"weight"</span>, <span class="st">"zombies_killed"</span>, <span class="st">"years_of_education"</span>, <span class="st">"age"</span>), </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"variable"</span>, </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"value"</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>calc_sd <span class="ot">&lt;-</span> <span class="cf">function</span>(x){   </span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">length</span>(x)) }</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>z_pop_results <span class="ot">&lt;-</span> z_long <span class="sc">%&gt;%</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">z_pop_mean =</span> <span class="fu">mean</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">z_pop_sd=</span> <span class="fu">calc_sd</span>(value)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_pop_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  variable           z_pop_mean z_pop_sd
+  &lt;chr&gt;                   &lt;dbl&gt;    &lt;dbl&gt;
+1 age                     20.0      2.96
+2 height                  67.6      4.31
+3 weight                 144.      18.4 
+4 years_of_education       3.00     1.68
+5 zombies_killed           2.99     1.75</code></pre>
+</div>
+</div>
+</section>
+<section id="step-3-boxplots-of-each-variable-by-gender" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-boxplots-of-each-variable-by-gender">Step 3: Boxplots of Each Variable by Gender</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>z_Box1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(z_long, <span class="fu">aes</span>(<span class="at">x=</span>gender, <span class="at">y=</span>value, <span class="at">fill=</span>gender)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span>   </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span>   </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(     </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Boxplot of Variables by Gender"</span>,     </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Gender"</span>,     <span class="at">y =</span> <span class="st">"Value"</span>   ) <span class="sc">+</span>   </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span>   </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(     </span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),     </span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>     </span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    )  </span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_Box1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Exercise-05_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="step-4-scatter-plots-for-height-and-weight-in-relation-to-age" class="level2">
+<h2 class="anchored" data-anchor-id="step-4-scatter-plots-for-height-and-weight-in-relation-to-age">Step 4: Scatter Plots for Height and Weight in Relation to Age</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>z_Scatter1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(z, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> weight, <span class="at">color =</span> <span class="fu">factor</span>(gender))) <span class="sc">+</span>   </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>   </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span>   </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(     <span class="at">title =</span> <span class="st">"Relationship Between Weight and Age"</span>,     <span class="at">x =</span> <span class="st">"Age"</span>,     <span class="at">y =</span> <span class="st">"Weight"</span>,     <span class="at">color =</span> <span class="st">"Gender"</span>   ) <span class="sc">+</span>   </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>), <span class="at">legend.position =</span> <span class="st">"bottom"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>z_Scatter2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(z, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> height, <span class="at">color =</span> <span class="fu">factor</span>(gender))) <span class="sc">+</span>   </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>   </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span>   </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(     <span class="at">title =</span> <span class="st">"Relationship Between Height and Age"</span>,     <span class="at">x =</span> <span class="st">"Age"</span>,     <span class="at">y =</span> <span class="st">"Height"</span>,     <span class="at">color =</span> <span class="st">"Gender"</span>   ) <span class="sc">+</span>   </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>), <span class="at">legend.position =</span> <span class="st">"bottom"</span>)  </span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>z_Scatter_1_2 <span class="ot">&lt;-</span> z_Scatter1 <span class="sc">+</span> z_Scatter2  </span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_Scatter_1_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'
+`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Exercise-05_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>

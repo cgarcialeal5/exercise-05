@@ -4,7 +4,11 @@ format: html
 editor: visual
 ---
 
+
+
 ## Prelims
+
+
 
 ```{r}
 #| eval: true
@@ -18,15 +22,23 @@ library(patchwork)
 library(purrr)
 ```
 
+
+
 # Challenge 1
 
 ## Step 1: Reading the Data
+
+
 
 ```{r}
 d <- read_csv("IMDB-movies.csv")
 ```
 
+
+
 ## Step 2: Filtering the Data
+
+
 
 ```{r}
 filtered_data <- d %>%
@@ -34,7 +46,11 @@ filtered_data <- d %>%
   mutate(Decade = floor(startYear/10)*10)
 ```
 
+
+
 ## Step 3: Histogram of Movie Length Frequency by Decade
+
+
 
 ```{r}
 
@@ -49,7 +65,11 @@ Histogram1 <- ggplot(filtered_data, aes(x = runtimeMinutes)) +
 print(Histogram1)
 ```
 
+
+
 ## Step 4: Population Mean and Standard Deviation
+
+
 
 ```{r}
 Results <- filtered_data %>%
@@ -61,7 +81,11 @@ Results <- filtered_data %>%
 print(Results)
 ```
 
+
+
 ## Step 5: Single Sample Mean and Standard Deviation
+
+
 
 ```{r}
 Sample <- filtered_data %>%
@@ -74,7 +98,11 @@ Sample <- filtered_data %>%
 print(Sample)
 ```
 
+
+
 ## Step 6: Standard Error for the Sample Mean
+
+
 
 ```{r}
 Sample <- mutate(Sample, sample_se = sample_sd / sqrt(100))
@@ -82,7 +110,11 @@ Sample <- mutate(Sample, sample_se = sample_sd / sqrt(100))
 print(Sample)
 ```
 
+
+
 ## Step 7: Comparison of Sample and Population Mean and Standard Deviation
+
+
 
 ```{r}
 Results <- mutate(Results, pop_se = Results$pop_sd/sqrt(100))
@@ -94,6 +126,8 @@ Results$p_score <- 2 * (1 - pnorm(abs(Results$z_score)))
 Compare_Table <- merge(Results, Sample, by = "Decade")
 print(Compare_Table)
 ```
+
+
 
 I used a z-test to compare the means of runtimeMinutes for the population and the single sample. This gave me z-scores for each decade, which I used to calculate the p-value for the z-score for each decade.
 
@@ -110,6 +144,8 @@ The Alternative Hypothesis: the means are significantly different to each other
 Across all decades, the p-values are above 0.05. Even the lowest p-value score is high enough that there is not enough evidence to reject the null hypothesis, as it is greater than 0.05. Therefore, there is no significant difference between the means for each decade.
 
 ## Step 8: Sampling Distribution
+
+
 
 ```{r}
 reps <- 1000
@@ -130,7 +166,11 @@ DistSample <- filtered_data %>%
 print(DistSample)
 ```
 
+
+
 ## Step 9: Sampling Distribution Mean and Standard Deviation
+
+
 
 ```{r}
 DistSample_Results <- DistSample %>%
@@ -155,7 +195,11 @@ Histogram2 <- ggplot(DistSample, aes(x = DistSample_mean)) +
 print(Histogram2)
 ```
 
+
+
 ## Step 10: Comparison of Standard Error for Single Sample, Population, and Sampling Distribution
+
+
 
 ```{r}
 #Join all pop, sample, and sampling distribution info into one tibble to make it easier...
@@ -186,6 +230,8 @@ CompleteCompare <- CompleteCompare %>%
 print(CompleteCompare)
 ```
 
+
+
 I used a z-test to compare the means of runtimeMinutes for the population, the single sample, and the sampling distribution during each decade. I calculated z-scores for population and single sample means, population and sampling distribution means, and single sample and sampling distribution means. This gave me three z-scores for each decade, which I used to calculate the p-value for each z-score for each decade.
 
 *For the z-score:*
@@ -204,12 +250,18 @@ Across all comparisons, the p-values are above 0.05. Even the lowest p-value sco
 
 ## Step 1: Reading the file
 
+
+
 ```{r}
 e <- "https://raw.githubusercontent.com/difiore/ada-datasets/main/zombies.csv"
 z <- read_csv(e)
 ```
 
+
+
 ## Step 2: Population Mean and Standard Deviation
+
+
 
 ```{r}
 z_long <- z %>%
@@ -230,7 +282,11 @@ z_pop_results <- z_long %>%
 print(z_pop_results)
 ```
 
+
+
 ## Step 3: Boxplots of Each Variable by Gender
+
+
 
 ```{r}
 z_Box1 <- ggplot(z_long, aes(x=gender, y=value, fill=gender)) +
@@ -247,7 +303,11 @@ z_Box1 <- ggplot(z_long, aes(x=gender, y=value, fill=gender)) +
 print(z_Box1)
 ```
 
+
+
 ## Step 4: Scatter Plots for Height and Weight in Relation to Age
+
+
 
 ```{r}
 z_Scat1 <- ggplot(z, aes(x = age, y = weight, color = factor(gender))) +   
@@ -268,7 +328,11 @@ z_Scat_1_2 <- z_Scat1 + z_Scat2
 print(z_Scat_1_2)
 ```
 
+
+
 ## Step 5: Histograms and Q-Q Plots for Each Variable
+
+
 
 ```{r}
 z_Hist1 <- ggplot(z_long, aes(x = value)) +   
@@ -296,7 +360,11 @@ z_QQ1 <- ggplot(z_long, aes(sample = value))+
 print(z_QQ1)
 ```
 
+
+
 ## Step 6: Single Sample Mean, Standard Deviation, Standard Error, and Theoretical 95% CI
+
+
 
 ```{r}
 z_single <- z_long %>%
@@ -320,7 +388,11 @@ print(z_single_results)
   
 ```
 
+
+
 ## Step 7: Sampling Distribution Mean and Standard Deviation and Comparison 
+
+
 
 ```{r}
 
@@ -378,3 +450,4 @@ z_final_tibble <- z_sampling_results %>%
               select(variable, z_score), by = "variable")
 print(z_final_tibble)
 ```
+
