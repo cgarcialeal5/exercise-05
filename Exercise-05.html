@@ -104,7 +104,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="challenge-1" class="level1">
@@ -198,12 +199,12 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6 × 3
   Decade sample_mean sample_sd
    &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
-1   1920        96.2      26.4
-2   1930        90.8      14.7
-3   1940        98.3      15.5
-4   1950        96.1      15.2
-5   1960       102.       18.7
-6   1970       102.       15.4</code></pre>
+1   1920        98.9      27.3
+2   1930        92.4      19.8
+3   1940        98.6      19.5
+4   1950        95.4      16.9
+5   1960       106.       21.8
+6   1970       103.       17.3</code></pre>
 </div>
 </div>
 </section>
@@ -217,12 +218,12 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6 × 4
   Decade sample_mean sample_sd sample_se
    &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1   1920        96.2      26.4      2.64
-2   1930        90.8      14.7      1.47
-3   1940        98.3      15.5      1.55
-4   1950        96.1      15.2      1.52
-5   1960       102.       18.7      1.87
-6   1970       102.       15.4      1.54</code></pre>
+1   1920        98.9      27.3      2.73
+2   1930        92.4      19.8      1.98
+3   1940        98.6      19.5      1.95
+4   1950        95.4      16.9      1.69
+5   1960       106.       21.8      2.18
+6   1970       103.       17.3      1.73</code></pre>
 </div>
 </div>
 </section>
@@ -239,19 +240,19 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Compare_Table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Decade  pop_mean   pop_sd   pop_se     z_score    p_score sample_mean
-1   1920  96.25658 26.20133 2.620133 -0.02159392 0.98277188       96.20
-2   1930  90.30000 17.28879 1.728879  0.30655702 0.75918057       90.83
-3   1940  97.20332 19.12372 1.912372  0.56823425 0.56987591       98.29
-4   1950  98.94820 19.20646 1.920646 -1.49855638 0.13398876       96.07
-5   1960 105.58586 21.23202 2.123202 -1.83960745 0.06582589      101.68
-6   1970 103.75000 17.95934 1.795934 -0.99669599 0.31891209      101.96
+1   1920  96.25658 26.20133 2.620133  1.02415437 0.30576237       98.94
+2   1930  90.30000 17.28879 1.728879  1.22622808 0.22011286       92.42
+3   1940  97.20332 19.12372 1.912372  0.71987840 0.47159987       98.58
+4   1950  98.94820 19.20646 1.920646 -1.84739737 0.06468957       95.40
+5   1960 105.58586 21.23202 2.123202  0.05375909 0.95712711      105.70
+6   1970 103.75000 17.95934 1.795934 -0.56794967 0.57006914      102.73
   sample_sd sample_se
-1  26.41013  2.641013
-2  14.69216  1.469216
-3  15.45622  1.545622
-4  15.23702  1.523702
-5  18.69148  1.869148
-6  15.35961  1.535961</code></pre>
+1  27.33696  2.733696
+2  19.77764  1.977764
+3  19.46360  1.946360
+4  16.92348  1.692348
+5  21.75460  2.175460
+6  17.32684  1.732684</code></pre>
 </div>
 </div>
 <p>I used a z-test to compare the means of runtimeMinutes for the population and the single sample. This gave me z-scores for each decade, which I used to calculate the p-value for the z-score for each decade.</p>
@@ -285,16 +286,16 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6,000 × 3
    Decade DistSample_mean DistSample_sd
     &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;
- 1   1920            95.8          26.0
- 2   1920            96.3          27.0
- 3   1920            93.7          25.7
- 4   1920            97.6          28.0
- 5   1920            96.0          26.9
- 6   1920            98.9          26.5
- 7   1920            98.3          26.7
- 8   1920            98.2          26.3
- 9   1920            96.2          26.0
-10   1920            97.4          27.9
+ 1   1920            98.8          26.4
+ 2   1920            96.6          27.2
+ 3   1920            97.6          25.7
+ 4   1920            94.4          25.4
+ 5   1920            94.3          25.0
+ 6   1920            97.5          25.6
+ 7   1920            93.8          25.1
+ 8   1920            96.8          26.8
+ 9   1920            93.1          24.7
+10   1920            96.2          26.5
 # ℹ 5,990 more rows</code></pre>
 </div>
 </div>
@@ -313,12 +314,12 @@ min(runtimeMinutes))/10), : Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6 × 3
   Decade distributionsample_mean distributionsample_sd
    &lt;dbl&gt;                   &lt;dbl&gt;                 &lt;dbl&gt;
-1   1920                    96.3                  1.49
-2   1930                    90.2                  1.54
-3   1940                    97.1                  1.84
-4   1950                    98.9                  1.86
-5   1960                   106.                   2.01
-6   1970                   104.                   1.66</code></pre>
+1   1920                    96.2                  1.50
+2   1930                    90.4                  1.62
+3   1940                    97.2                  1.77
+4   1950                    99.0                  1.83
+5   1960                   106.                   1.92
+6   1970                   104.                   1.77</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Histogram2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(DistSample, <span class="fu">aes</span>(<span class="at">x =</span> DistSample_mean)) <span class="sc">+</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(</span>
@@ -388,12 +389,12 @@ Ignoring unknown aesthetics: binwidth</code></pre>
 <pre><code># A tibble: 6 × 10
   Decade pop_mean sample_mean distributionsample_mean z_pop_sample p_pop_sample
    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;                   &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-1   1920     96.3        96.2                    96.3      -0.0216       0.983 
-2   1930     90.3        90.8                    90.2       0.307        0.759 
-3   1940     97.2        98.3                    97.1       0.568        0.570 
-4   1950     98.9        96.1                    98.9      -1.50         0.134 
-5   1960    106.        102.                    106.       -1.84         0.0658
-6   1970    104.        102.                    104.       -0.997        0.319 
+1   1920     96.3        98.9                    96.2       1.02         0.306 
+2   1930     90.3        92.4                    90.4       1.23         0.220 
+3   1940     97.2        98.6                    97.2       0.720        0.472 
+4   1950     98.9        95.4                    99.0      -1.85         0.0647
+5   1960    106.        106.                    106.        0.0538       0.957 
+6   1970    104.        103.                    104.       -0.568        0.570 
 # ℹ 4 more variables: z_pop_dist &lt;dbl&gt;, p_pop_dist &lt;dbl&gt;, z_sample_dist &lt;dbl&gt;,
 #   p_sample_dist &lt;dbl&gt;</code></pre>
 </div>
@@ -484,7 +485,7 @@ dbl (6): id, height, weight, zombies_killed, years_of_education, age
 <section id="step-4-scatter-plots-for-height-and-weight-in-relation-to-age" class="level2">
 <h2 class="anchored" data-anchor-id="step-4-scatter-plots-for-height-and-weight-in-relation-to-age">Step 4: Scatter Plots for Height and Weight in Relation to Age</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>z_Scatter1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(z, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> weight, <span class="at">color =</span> <span class="fu">factor</span>(gender))) <span class="sc">+</span>   </span>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>z_Scat1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(z, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> weight, <span class="at">color =</span> <span class="fu">factor</span>(gender))) <span class="sc">+</span>   </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>   </span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span>   </span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(     <span class="at">title =</span> <span class="st">"Relationship Between Weight and Age"</span>,     <span class="at">x =</span> <span class="st">"Age"</span>,     <span class="at">y =</span> <span class="st">"Weight"</span>,     <span class="at">color =</span> <span class="st">"Gender"</span>   ) <span class="sc">+</span>   </span>
@@ -493,15 +494,15 @@ dbl (6): id, height, weight, zombies_killed, years_of_education, age
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>z_Scatter2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(z, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> height, <span class="at">color =</span> <span class="fu">factor</span>(gender))) <span class="sc">+</span>   </span>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>z_Scat2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(z, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> height, <span class="at">color =</span> <span class="fu">factor</span>(gender))) <span class="sc">+</span>   </span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>   </span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span>   </span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(     <span class="at">title =</span> <span class="st">"Relationship Between Height and Age"</span>,     <span class="at">x =</span> <span class="st">"Age"</span>,     <span class="at">y =</span> <span class="st">"Height"</span>,     <span class="at">color =</span> <span class="st">"Gender"</span>   ) <span class="sc">+</span>   </span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>), <span class="at">legend.position =</span> <span class="st">"bottom"</span>)  </span>
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>z_Scatter_1_2 <span class="ot">&lt;-</span> z_Scatter1 <span class="sc">+</span> z_Scatter2  </span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>z_Scat_1_2 <span class="ot">&lt;-</span> z_Scat1 <span class="sc">+</span> z_Scat2  </span>
 <span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_Scatter_1_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_Scat_1_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'
 `geom_smooth()` using formula = 'y ~ x'</code></pre>
@@ -512,6 +513,196 @@ dbl (6): id, height, weight, zombies_killed, years_of_education, age
 <p><img src="Exercise-05_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+</section>
+<section id="step-5-histograms-and-q-q-plots-for-each-variable" class="level2">
+<h2 class="anchored" data-anchor-id="step-5-histograms-and-q-q-plots-for-each-variable">Step 5: Histograms and Q-Q Plots for Each Variable</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>z_Hist1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(z_long, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span>   </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span>   </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span>   </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Variables"</span>,         </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span> <span class="st">"Frequency"</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span>   </span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) </span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_Hist1)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Exercise-05_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>z_QQ1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(z_long, <span class="fu">aes</span>(<span class="at">sample =</span> value))<span class="sc">+</span>   </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>()<span class="sc">+</span>   </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>()<span class="sc">+</span>   </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free"</span>)<span class="sc">+</span>   </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(     </span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Q-Q Plots for Quantitative Variables"</span>,     </span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Sample Quantiles"</span>,     </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Theoretical Quantiles"</span>       </span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">+</span>   </span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))  </span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_QQ1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Exercise-05_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="step-6-single-sample-mean-standard-deviation-standard-error-and-theoretical-95-ci" class="level2">
+<h2 class="anchored" data-anchor-id="step-6-single-sample-mean-standard-deviation-standard-error-and-theoretical-95-ci">Step 6: Single Sample Mean, Standard Deviation, Standard Error, and Theoretical 95% CI</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>z_single <span class="ot">&lt;-</span> z_long <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(id) <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n=</span><span class="dv">50</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(z_long, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_single)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 250 × 7
+      id first_name last_name gender major                  variable       value
+   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;                  &lt;chr&gt;          &lt;dbl&gt;
+ 1   103 Louis      Burke     Male   mechanical engineering height          72.4
+ 2   103 Louis      Burke     Male   mechanical engineering weight         149. 
+ 3   103 Louis      Burke     Male   mechanical engineering zombies_killed   0  
+ 4   103 Louis      Burke     Male   mechanical engineering years_of_educ…   2  
+ 5   103 Louis      Burke     Male   mechanical engineering age             19.6
+ 6   487 Marilyn    Weaver    Female architecture           height          67.7
+ 7   487 Marilyn    Weaver    Female architecture           weight         115. 
+ 8   487 Marilyn    Weaver    Female architecture           zombies_killed   4  
+ 9   487 Marilyn    Weaver    Female architecture           years_of_educ…   3  
+10   487 Marilyn    Weaver    Female architecture           age             24.7
+# ℹ 240 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>z_single_results <span class="ot">&lt;-</span> z_single <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">z_single_m =</span> <span class="fu">mean</span>(value),</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">z_single_sd =</span> <span class="fu">sd</span>(value),</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">z_single_se =</span> z_single_sd <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">50</span>),</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">z_single_95ci_lo =</span> z_single_m <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>) <span class="sc">*</span> z_single_se,</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">z_single_95ci_up =</span> z_single_m <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> z_single_se</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_single_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 6
+  variable  z_single_m z_single_sd z_single_se z_single_95ci_lo z_single_95ci_up
+  &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+1 age            20.1         3.18       0.449            19.2             21.0 
+2 height         68.0         4.34       0.614            66.8             69.2 
+3 weight        146.         18.6        2.62            141.             151.  
+4 years_of…       2.98        1.46       0.207             2.57             3.39
+5 zombies_…       2.82        1.85       0.261             2.31             3.33</code></pre>
+</div>
+</div>
+</section>
+<section id="step-7-sampling-distribution-mean-and-standard-deviation-and-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="step-7-sampling-distribution-mean-and-standard-deviation-and-comparison">Step 7: Sampling Distribution Mean and Standard Deviation and Comparison</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>z_single_results <span class="ot">&lt;-</span> z_single_results <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">z_sampling_m =</span> z_single_m, <span class="at">z_sampling_sd =</span> z_single_sd)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>z_single_results_selected <span class="ot">&lt;-</span> z_single_results <span class="sc">%&gt;%</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, z_sampling_m, z_sampling_sd)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>z_sampling <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">199</span>, <span class="sc">~</span>{</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    z_sampling_temp <span class="ot">&lt;-</span> z_long <span class="sc">%&gt;%</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">distinct</span>(id) <span class="sc">%&gt;%</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">slice_sample</span>(., <span class="at">n=</span><span class="dv">50</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">left_join</span>(z_long, <span class="at">by =</span> <span class="st">"id"</span>)</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>    z_sampling_temp_results <span class="ot">&lt;-</span> z_sampling_temp <span class="sc">%&gt;%</span></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise</span>(</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">z_sampling_m =</span> <span class="fu">mean</span>(value),</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">z_sampling_sd =</span> <span class="fu">sd</span>(value)</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>    z_sampling_temp_results</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">%&gt;%</span></span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(z_single_results_selected)</span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_sampling)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,000 × 3
+   variable           z_sampling_m z_sampling_sd
+   &lt;chr&gt;                     &lt;dbl&gt;         &lt;dbl&gt;
+ 1 age                       19.6           2.85
+ 2 height                    66.9           3.78
+ 3 weight                   141.           14.8 
+ 4 years_of_education         2.98          1.62
+ 5 zombies_killed             2.58          1.51
+ 6 age                       19.8           3.02
+ 7 height                    67.1           4.09
+ 8 weight                   143.           18.0 
+ 9 years_of_education         3.08          1.79
+10 zombies_killed             2.88          1.62
+# ℹ 990 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>z_single_results <span class="ot">&lt;-</span> z_single_results <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">z_single_m =</span> z_sampling_m, <span class="at">z_single_sd =</span> z_sampling_sd)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>z_sampling_results <span class="ot">&lt;-</span> z_sampling <span class="sc">%&gt;%</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">z_sampling_results_m =</span> <span class="fu">mean</span>(z_sampling_m),</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">z_sampling_results_sd =</span> <span class="fu">sd</span>(z_sampling_sd)</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_sampling_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  variable           z_sampling_results_m z_sampling_results_sd
+  &lt;chr&gt;                             &lt;dbl&gt;                 &lt;dbl&gt;
+1 age                               20.1                  0.291
+2 height                            67.6                  0.424
+3 weight                           144.                   1.70 
+4 years_of_education                 2.99                 0.153
+5 zombies_killed                     3.00                 0.188</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>z_scores <span class="ot">&lt;-</span> z_sampling_results <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">z_score =</span> (z_sampling_results_m <span class="sc">-</span> z_single_results<span class="sc">$</span>z_single_m) <span class="sc">/</span> z_single_results<span class="sc">$</span>z_single_se</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  variable           z_sampling_results_m z_sampling_results_sd z_score
+  &lt;chr&gt;                             &lt;dbl&gt;                 &lt;dbl&gt;   &lt;dbl&gt;
+1 age                               20.1                  0.291 -0.0344
+2 height                            67.6                  0.424 -0.666 
+3 weight                           144.                   1.70  -0.747 
+4 years_of_education                 2.99                 0.153  0.0585
+5 zombies_killed                     3.00                 0.188  0.670 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>z_final_tibble <span class="ot">&lt;-</span> z_sampling_results <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(variable, z_sampling_results_sd) <span class="sc">%&gt;%</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(z_single_results <span class="sc">%&gt;%</span> </span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(variable, z_single_se), <span class="at">by =</span> <span class="st">"variable"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(z_scores <span class="sc">%&gt;%</span> </span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(variable, z_score), <span class="at">by =</span> <span class="st">"variable"</span>)</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z_final_tibble)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  variable           z_sampling_results_sd z_single_se z_score
+  &lt;chr&gt;                              &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+1 age                                0.291       0.449 -0.0344
+2 height                             0.424       0.614 -0.666 
+3 weight                             1.70        2.62  -0.747 
+4 years_of_education                 0.153       0.207  0.0585
+5 zombies_killed                     0.188       0.261  0.670 </code></pre>
 </div>
 </div>
 </section>
